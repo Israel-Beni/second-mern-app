@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 
@@ -34,7 +34,7 @@ router.post("/register", (req, res) => {
             // Hash password before saving in database
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
-                if (err) throw err;
+                if (err) { throw err }
                 newUser.password = hash;
                 newUser
                     .save()
